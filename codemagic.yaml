@@ -1,26 +1,12 @@
 workflows:
-  ios-app:
-    name: Build iOS app
+  ios-workflow:
+    name: iOS Workflow
     environment:
-      xcode: 15.0
-      ios_signing:
-        distribution_type: development
-    scripts:
-      - name: Build ipa for iOS
-        script: |
-          # If using CocoaPods
-          if [ -f "GeoCards.xcworkspace" ]; then
-            xcode-project build-ipa \
-              --workspace "GeoCards.xcworkspace" \
-              --scheme "GeoCards"
-          else
-            xcode-project build-ipa \
-              --project "GeoCards.xcodeproj" \
-              --scheme "GeoCards"
-          fi
-    artifacts:
-      - build/ios/ipa/*.ipa
-    publishing:
-      email:
-        recipients:
-          - your@email.com
+      ios:
+        xcode: latest
+        cocoapods: default
+        ios_signing:
+          automatic_signing:
+            enabled: true
+            distribution_type: app-store
+            bundle_identifier: com.michaelverette.myapp
